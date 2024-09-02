@@ -138,9 +138,9 @@ public Productos [ ] getProductosArray(int limite, int pagina) {
 	Productos [] arrayProductos = new Productos[limite];
 	
 	  int offset = (pagina - 1) * limite;
-	    String nombres;
-	    double precio;
-	    String imagenes;
+	    //String nombres;
+	    //double precio;
+	    //String imagenes;
 	    int i =0;
 	    
 	    String queryLimit = "SELECT * FROM productos LIMIT " + limite + " OFFSET " + offset;
@@ -156,23 +156,25 @@ public Productos [ ] getProductosArray(int limite, int pagina) {
 	      while (resultado.next()&&  i < limite) {
 	    	  
 	    	  obtenerProductos = new Productos();
-	    	  
-	            nombres = resultado.getString("nombre");
-	            precio = resultado.getDouble("precio");
-	            imagenes = resultado.getString("imagen");
-	            //
+	    	
 	            
-	            obtenerProductos.setImagen(imagenes);
-	            obtenerProductos.setNombre(nombres);
-	            obtenerProductos.setPrecio(precio);
-	            
+	            obtenerProductos.setImagen(resultado.getString("nombre"));
+	            obtenerProductos.setNombre(resultado.getString("imagen"));
+	            obtenerProductos.setPrecio(resultado.getDouble("precio"));
+	            //arrayProductos[i].setImagen("nombre"); si no se inicializa en un for aparte con index j no devuelve nada 
+	         
 	           arrayProductos[i] = obtenerProductos;
-	      
+	           Mensajes.verMensaje("Java - Index  :"  + i);
+	           i++;
 	            // resultado 
 	            
-	            Mensajes.verMensaje("Java = "+"Nombre"+nombres+"-"+"Precio"+precio+"-"+"imagenes"+imagenes);
+	            //Mensajes.verMensaje("Java = "+"Nombre"+nombres+"-"+"Precio"+precio+"-"+"imagenes"+imagenes);
 	   
 	      } 
+	      
+	      Mensajes.verMensaje("Java--offset :" + offset);
+	      Mensajes.verMensaje("Java--limite :" + limite);
+	      Mensajes.verMensaje("Java--pagina :" + pagina);
 	    } catch (SQLException e) {
 	    	e.printStackTrace();
 	    	Mensajes.verMensaje("java error resultado" +e );
@@ -199,12 +201,12 @@ public Productos [ ] getProductosArray(int limite, int pagina) {
 	    }
 	
 	
-	Mensajes.verMensaje("Java -- Sesion Finalizada :" + arrayProductos[i].toString() +" -- " +"indice = " +i);
+	//Mensajes.verMensaje("Java -- Sesion Finalizada :" + arrayProductos[i].toString() +" -- " +"indice = " +i);
 	return arrayProductos;
 	
 }
 
-public List<Productos> getProductosAll(int limite, int pagina) {
+public List<Productos> getProductosList(int limite, int pagina) {
 		    List<Productos> listaConsultas = new ArrayList<>();
 		    
 		    
